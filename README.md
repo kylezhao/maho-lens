@@ -31,6 +31,8 @@ Preview performance targets:
 
 - Swift 5, SwiftUI, SwiftData, Swift Testing
 - iOS 26.5+, Xcode 26.6
+- Localized in English, Simplified Chinese (简体中文) and Japanese (日本語):
+  UI strings in `Localizable.xcstrings`, app display name in `InfoPlist.xcstrings`
 - Planned: AVFoundation (capture), Vision (face detection and person
   segmentation), Core Image / Metal (real-time filters), Photos (saving)
 
