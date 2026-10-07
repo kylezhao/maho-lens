@@ -1,54 +1,204 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "Add Item": {
-      "localizations": {
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "項目を追加"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "About" : {
+
+    },
+    "Accurate" : {
+
+    },
+    "Add Item" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目を追加"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "添加项目"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加项目"
           }
         }
       }
     },
-    "Item at %@": {
-      "localizations": {
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ の項目"
+    "Also save to Photos library" : {
+
+    },
+    "At 30 fps the preview must stay above 25 fps; at 60 fps above 50 fps. The dial on the camera screen turns green when it does." : {
+
+    },
+    "Back" : {
+
+    },
+    "Background blur" : {
+
+    },
+    "Balanced" : {
+
+    },
+    "Camera" : {
+
+    },
+    "Camera access is off. Allow it in Settings to cast spells." : {
+
+    },
+    "Capture" : {
+
+    },
+    "Close" : {
+
+    },
+    "Cool tones" : {
+
+    },
+    "Copied" : {
+
+    },
+    "Copy report" : {
+
+    },
+    "Copyright © 2026 Kyle Zhao. All rights reserved." : {
+
+    },
+    "Delete" : {
+
+    },
+    "Demo" : {
+
+    },
+    "Display and saving" : {
+
+    },
+    "Done" : {
+
+    },
+    "Ember Veil" : {
+
+    },
+    "Face focus" : {
+
+    },
+    "Fast" : {
+
+    },
+    "Fast gives a coarser mask but leaves more time for 60 fps. Stills always use Accurate." : {
+
+    },
+    "Focus Charm" : {
+
+    },
+    "fps" : {
+
+    },
+    "Front" : {
+
+    },
+    "Frost Veil" : {
+
+    },
+    "Grayscale" : {
+
+    },
+    "Item at %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ の項目"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ 的项目"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 的项目"
           }
         }
       }
     },
-    "Select an item": {
-      "localizations": {
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "項目を選択してください"
+    "Mist Barrier" : {
+
+    },
+    "Moonlight Mono" : {
+
+    },
+    "No camera is available on this device." : {
+
+    },
+    "No spells" : {
+
+    },
+    "No transformations yet" : {
+
+    },
+    "Performance report" : {
+
+    },
+    "Person segmentation" : {
+
+    },
+    "Photo library access is off, so the photo was kept inside Maho Lens only." : {
+
+    },
+    "Photos you take are kept here and, if allowed, in your Photos library." : {
+
+    },
+    "Preview frame rate" : {
+
+    },
+    "Select an item" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目を選択してください"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "请选择一个项目"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请选择一个项目"
           }
         }
       }
+    },
+    "Settings" : {
+
+    },
+    "Share" : {
+
+    },
+    "Show performance metrics" : {
+
+    },
+    "Take photo" : {
+
+    },
+    "target %lld" : {
+
+    },
+    "The camera could not be configured." : {
+
+    },
+    "The demo portrait is missing from the app bundle." : {
+
+    },
+    "The photo could not be taken." : {
+
+    },
+    "Transformations" : {
+
+    },
+    "Version" : {
+
+    },
+    "Warm tones" : {
+
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
