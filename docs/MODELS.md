@@ -29,6 +29,13 @@ The dial shows preview, capture and analysis rates over a one-second window, ren
 | iPhone 16e simulator (software Core Image) | 30 fps, no spells | 30 | 0.6 | 1 | demo portrait source |
 | iPhone 16e simulator | 30 fps, Mist Barrier + Ember Veil | 23 | 3.3 | 41 | face rev 2 + synthetic mask; simulator numbers are not representative |
 | iPhone 16e simulator | 60 fps, Mist + Ember + Mono | 25 | 3.3 | 43 | same caveat |
-| iPhone 16e (Kyle's device, 2026-10-07) | 30 fps / 60 fps | _fill in from the device dial_ | | | Kyle confirmed the app runs; please paste the performance report from Settings here |
+| iPhone 16e, front camera 1920×1080 (Kyle's device, 2026-10-07, timer-driven rendering) | 60 fps, Mist Barrier | 50.0 (peak 60.0) | 0.96 | 18.3 (29 analyses/s) | capture 58 fps; meets target |
+| iPhone 16e, front camera 1920×1080 (same build) | 30 fps, Mist Barrier | 24.0 (peak 26.0) | 1.44 | 29.2 (21 analyses/s) | capture 29 fps; **below target by 1 fps** |
+| iPhone 16e, after frame-driven rendering fix | 30 fps / 60 fps | _to be re-measured_ | | | the fix removes the timer/capture beat that cost 4–5 fps |
+
+The device reports show the GPU is not the limit (about 1 ms per frame) and the camera delivers
+29 and 58 fps. The lost frames came from the preview drawing on a display timer at the target rate:
+with capture at 29 fps and a 30 Hz timer, frames periodically land two per tick and one is skipped.
+Rendering is now triggered by frame arrival, so the preview rate should track the capture rate.
 
 The 25 fps (at 30) and 50 fps (at 60) thresholds are encoded in `FrameRateSetting.minimumAcceptable` and drive the dial colour.

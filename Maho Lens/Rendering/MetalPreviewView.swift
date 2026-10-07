@@ -25,6 +25,9 @@ final class PreviewRenderer: NSObject, MTKViewDelegate, @unchecked Sendable {
     let spellRenderer: SpellRenderer
     let monitor: PerformanceMonitor
     private let commandQueue: MTLCommandQueue?
+    /// The view we render into. Drawing is driven by frame arrival rather than a display timer, so a
+    /// 29 fps capture does not beat against a 30 Hz timer and lose frames.
+    private weak var view: MTKView?
 
     init(spellRenderer: SpellRenderer = SpellRenderer(), monitor: PerformanceMonitor) {
         self.spellRenderer = spellRenderer
@@ -33,13 +36,20 @@ final class PreviewRenderer: NSObject, MTKViewDelegate, @unchecked Sendable {
         super.init()
     }
 
+    func attach(_ view: MTKView) {
+        lock.withLock { self.view = view }
+    }
+
     func enqueue(_ frame: VideoFrame) {
-        lock.withLock {
+        let target = lock.withLock { () -> MTKView? in
             pendingFrame = frame
             hasNewFrame = true
             frameSize = frame.size
+            return view
         }
         monitor.recordCapture(at: frame.timestamp)
+        guard let target else { return }
+        DispatchQueue.main.async { target.draw() }
     }
 
     func update(mask: CIImage?) {
@@ -96,9 +106,11 @@ struct MetalPreviewView: UIViewRepresentable {
         view.delegate = renderer
         view.framebufferOnly = false
         view.colorPixelFormat = .bgra8Unorm
-        view.isPaused = false
+        // Paused: `PreviewRenderer.enqueue` calls `draw()` for every captured frame instead.
+        view.isPaused = true
         view.enableSetNeedsDisplay = false
         view.preferredFramesPerSecond = preferredFramesPerSecond
+        renderer.attach(view)
         view.backgroundColor = .black
         view.clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 1)
         view.contentMode = .scaleAspectFill
