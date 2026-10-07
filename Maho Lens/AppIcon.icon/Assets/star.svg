@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- four-point magical star inside the lens -->
+  <path d="M512 400 C 528 500, 552 524, 652 540 C 552 556, 528 580, 512 680 C 496 580, 472 556, 372 540 C 472 524, 496 500, 512 400 Z" fill="#FFD36E"/>
+  <circle cx="512" cy="540" r="34" fill="#FFFFFF"/>
+</svg>

@@ -1,0 +1,40 @@
+{
+  "fill": {
+    "automatic-gradient": "extended-srgb:0.98000,0.42000,0.68000,1.00000"
+  },
+  "groups": [
+    {
+      "layers": [
+        {
+          "image-name": "sparkles.svg",
+          "name": "sparkles"
+        },
+        {
+          "image-name": "star.svg",
+          "name": "star"
+        },
+        {
+          "image-name": "ring.svg",
+          "name": "ring"
+        }
+      ],
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.5
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.5
+      },
+      "specular": true,
+      "blur-material": 0.5,
+      "lighting": "individual"
+    }
+  ],
+  "supported-platforms": {
+    "circles": [
+      "watchOS"
+    ],
+    "squares": "shared"
+  }
+}
