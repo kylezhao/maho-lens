@@ -33,14 +33,18 @@ The dial shows preview, capture and analysis rates over a one-second window, ren
 | iPhone 16e, front camera 1920×1080 (same build) | 30 fps, Mist Barrier | 24.0 (peak 26.0) | 1.44 | 29.2 (21 analyses/s) | capture 29 fps; **below target by 1 fps** |
 | iPhone 16e, frame-driven draw via main thread | 30 fps, Mist Barrier | 30.0 (peak 31.0) | 2.77 | 15.9 (30 analyses/s) | capture 29 fps; meets target |
 | iPhone 16e, frame-driven draw via main thread | 60 fps, Mist Barrier | 46.0 (peak 61.0) | 3.31 | 25.3 (29 analyses/s) | capture 58 fps; below target: frames coalesced on the main thread |
-| iPhone 16e, direct layer rendering on the capture queue | 30 fps / 60 fps | _to be re-measured_ | | | removes the main-thread hop |
+| iPhone 16e, direct layer rendering, viewfinder dial (Kyle's screenshot, 2026-10-07 17:45) | 60 fps, Mist Barrier | **60** | 2.0 | 10 | green dot; **meets target with headroom** |
+| iPhone 16e, same build, report read inside the Settings sheet | 60 fps, Mist Barrier | 45.0 (peak 60.0) | 2.09 | 11.0 | capture fell to 42 because the occluded preview withheld drawables and the capture queue blocked on them; see bug 11 |
 
 The device reports show the GPU is not the limit (about 1 ms per frame) and the camera delivers
 29 and 58 fps. The lost frames came from the preview drawing on a display timer at the target rate:
 with capture at 29 fps and a 30 Hz timer, frames periodically land two per tick and one is skipped.
 Triggering the draw per frame through the main thread fixed 30 fps (30.0) but still lost frames at
 60 (46.0): when SwiftUI kept the main thread busy for more than a frame, two captured frames
-coalesced into one draw. Rendering now goes straight into the view's `CAMetalLayer` on the capture
-queue, where `nextDrawable()` paces presentation to the display.
+coalesced into one draw. Rendering now goes straight into the view's `CAMetalLayer` from a dedicated render queue fed by
+a one-frame mailbox, where `nextDrawable()` paces presentation to the display without ever
+blocking the camera's delegate. On the viewfinder the dial reads 60 fps at the 60 setting and 30 at
+the 30 setting with Mist Barrier active, so both thresholds are met with margin. The report in
+Settings is frozen at the moment the sheet opens for the same reason.
 
 The 25 fps (at 30) and 50 fps (at 60) thresholds are encoded in `FrameRateSetting.minimumAcceptable` and drive the dial colour.

@@ -14,6 +14,9 @@ struct CameraView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var showingGallery = false
     @State private var showingSettings = false
+    /// Snapshot of the metrics taken as Settings opens, so the report reflects the viewfinder and
+    /// not the occluded preview behind the sheet.
+    @State private var frozenReport = ""
 
     init(settings: AppSettings) {
         _viewModel = State(initialValue: CameraViewModel(settings: settings))
@@ -56,7 +59,7 @@ struct CameraView: View {
             viewModel.setSegmentationQuality(settings.segmentationQuality)
             Task { await viewModel.setFrameRate(settings.frameRate) }
         }) {
-            NavigationStack { SettingsView(report: viewModel.performanceReport) }
+            NavigationStack { SettingsView(report: frozenReport) }
         }
         .preferredColorScheme(.dark)
     }
@@ -82,6 +85,7 @@ struct CameraView: View {
             .accessibilityIdentifier("flipButton")
             .disabled(viewModel.isDemo)
             Button {
+                frozenReport = viewModel.performanceReport
                 showingSettings = true
             } label: {
                 Image(systemName: "gearshape.fill")

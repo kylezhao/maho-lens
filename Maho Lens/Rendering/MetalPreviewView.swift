@@ -30,6 +30,10 @@ final class PreviewRenderer: NSObject, MTKViewDelegate, @unchecked Sendable {
     /// drawable pool paces presentation to the display's refresh.
     private weak var metalLayer: CAMetalLayer?
     private var drawableSize = CGSize.zero
+    /// Rendering runs here, fed by a one-frame mailbox, so waiting for a drawable (for example while
+    /// a sheet covers the preview) never stalls the camera's delegate queue.
+    private let renderQueue = DispatchQueue(label: "com.kylezhao.MahoLens.render", qos: .userInteractive)
+    private var isRenderScheduled = false
 
     init(spellRenderer: SpellRenderer = SpellRenderer(), monitor: PerformanceMonitor) {
         self.spellRenderer = spellRenderer
@@ -47,26 +51,44 @@ final class PreviewRenderer: NSObject, MTKViewDelegate, @unchecked Sendable {
         }
     }
 
-    /// Called on the source's queue for every frame. Renders immediately.
+    /// Called on the source's queue for every frame. Drops the frame in the mailbox and returns at once.
     func enqueue(_ frame: VideoFrame) {
-        let (layer, size, mask, spells) = lock.withLock { () -> (CAMetalLayer?, CGSize, CIImage?, SpellState) in
+        let shouldSchedule = lock.withLock { () -> Bool in
             pendingFrame = frame
             hasNewFrame = true
             frameSize = frame.size
-            return (metalLayer, drawableSize, self.mask, self.spells)
+            if isRenderScheduled { return false }
+            isRenderScheduled = true
+            return true
         }
         monitor.recordCapture(at: frame.timestamp)
-        guard let layer, size != .zero, let commandQueue else { return }
-        // Blocks when all drawables are in flight, which paces us to the display without dropping
-        // more than the camera already discards for late frames.
-        guard let drawable = layer.nextDrawable(), let commandBuffer = commandQueue.makeCommandBuffer() else { return }
-        let start = CACurrentMediaTime()
-        let image = spellRenderer.apply(.init(image: CIImage(cvPixelBuffer: frame.pixelBuffer), mask: mask, spells: spells))
-        spellRenderer.render(image, to: drawable.texture, commandBuffer: commandBuffer, size: size)
-        commandBuffer.present(drawable)
-        commandBuffer.commit()
-        lock.withLock { hasNewFrame = false }
-        monitor.recordPreview(at: CACurrentMediaTime(), milliseconds: (CACurrentMediaTime() - start) * 1000)
+        if shouldSchedule {
+            renderQueue.async { [weak self] in self?.renderPendingFrames() }
+        }
+    }
+
+    /// Renders the newest frame, then any frame that arrived meanwhile, then goes idle.
+    private func renderPendingFrames() {
+        while true {
+            let (frame, layer, size, mask, spells) = lock.withLock { () -> (VideoFrame?, CAMetalLayer?, CGSize, CIImage?, SpellState) in
+                guard hasNewFrame, let pendingFrame else {
+                    isRenderScheduled = false
+                    return (nil, nil, .zero, nil, self.spells)
+                }
+                hasNewFrame = false
+                return (pendingFrame, metalLayer, drawableSize, self.mask, self.spells)
+            }
+            guard let frame else { return }
+            guard let layer, size != .zero, let commandQueue else { continue }
+            // Waits here when all drawables are in flight (display pacing) or the layer is occluded.
+            guard let drawable = layer.nextDrawable(), let commandBuffer = commandQueue.makeCommandBuffer() else { continue }
+            let start = CACurrentMediaTime()
+            let image = spellRenderer.apply(.init(image: CIImage(cvPixelBuffer: frame.pixelBuffer), mask: mask, spells: spells))
+            spellRenderer.render(image, to: drawable.texture, commandBuffer: commandBuffer, size: size)
+            commandBuffer.present(drawable)
+            commandBuffer.commit()
+            monitor.recordPreview(at: CACurrentMediaTime(), milliseconds: (CACurrentMediaTime() - start) * 1000)
+        }
     }
 
     func update(mask: CIImage?) {

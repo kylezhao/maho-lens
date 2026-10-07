@@ -63,6 +63,8 @@ struct SettingsView: View {
                 }
             } header: {
                 Text("Performance report")
+            } footer: {
+                Text("Captured on the viewfinder at the moment Settings opened. While this sheet covers the preview the system withholds drawables, so live numbers here would understate the real rate.")
             }
 
             Section {
