@@ -1,204 +1,829 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "About" : {
-
-    },
-    "Accurate" : {
-
-    },
-    "Add Item" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "項目を追加"
+  "sourceLanguage": "en",
+  "strings": {
+    "About": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "情報"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "添加项目"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关于"
           }
         }
       }
     },
-    "Also save to Photos library" : {
-
-    },
-    "At 30 fps the preview must stay above 25 fps; at 60 fps above 50 fps. The dial on the camera screen turns green when it does." : {
-
-    },
-    "Back" : {
-
-    },
-    "Background blur" : {
-
-    },
-    "Balanced" : {
-
-    },
-    "Camera" : {
-
-    },
-    "Camera access is off. Allow it in Settings to cast spells." : {
-
-    },
-    "Capture" : {
-
-    },
-    "Close" : {
-
-    },
-    "Cool tones" : {
-
-    },
-    "Copied" : {
-
-    },
-    "Copy report" : {
-
-    },
-    "Copyright © 2026 Kyle Zhao. All rights reserved." : {
-
-    },
-    "Delete" : {
-
-    },
-    "Demo" : {
-
-    },
-    "Display and saving" : {
-
-    },
-    "Done" : {
-
-    },
-    "Ember Veil" : {
-
-    },
-    "Face focus" : {
-
-    },
-    "Fast" : {
-
-    },
-    "Fast gives a coarser mask but leaves more time for 60 fps. Stills always use Accurate." : {
-
-    },
-    "Focus Charm" : {
-
-    },
-    "fps" : {
-
-    },
-    "Front" : {
-
-    },
-    "Frost Veil" : {
-
-    },
-    "Grayscale" : {
-
-    },
-    "Item at %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ の項目"
+    "Accurate": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高精度"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ 的项目"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "精确"
           }
         }
       }
     },
-    "Mist Barrier" : {
-
-    },
-    "Moonlight Mono" : {
-
-    },
-    "No camera is available on this device." : {
-
-    },
-    "No spells" : {
-
-    },
-    "No transformations yet" : {
-
-    },
-    "Performance report" : {
-
-    },
-    "Person segmentation" : {
-
-    },
-    "Photo library access is off, so the photo was kept inside Maho Lens only." : {
-
-    },
-    "Photos you take are kept here and, if allowed, in your Photos library." : {
-
-    },
-    "Preview frame rate" : {
-
-    },
-    "Select an item" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "項目を選択してください"
+    "Add Item": {
+      "extractionState": "stale",
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "項目を追加"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "请选择一个项目"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添加项目"
           }
         }
       }
     },
-    "Settings" : {
-
+    "Also save to Photos library": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "写真ライブラリにも保存"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "同时保存到照片图库"
+          }
+        }
+      }
     },
-    "Share" : {
-
+    "At 30 fps the preview must stay above 25 fps; at 60 fps above 50 fps. The dial on the camera screen turns green when it does.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 fps 設定ではプレビューが 25 fps 以上、60 fps 設定では 50 fps 以上を維持する必要があります。達成するとカメラ画面のダイヤルが緑色になります。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 fps 设置下预览需保持在 25 fps 以上；60 fps 设置下需保持在 50 fps 以上。达标时相机界面的表盘会变为绿色。"
+          }
+        }
+      }
     },
-    "Show performance metrics" : {
-
+    "Back": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "背面"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "后置"
+          }
+        }
+      }
     },
-    "Take photo" : {
-
+    "Background blur": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "背景ぼかし"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "背景虚化"
+          }
+        }
+      }
     },
-    "target %lld" : {
-
+    "Balanced": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "バランス"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "均衡"
+          }
+        }
+      }
     },
-    "The camera could not be configured." : {
-
+    "Camera": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "カメラ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "相机"
+          }
+        }
+      }
     },
-    "The demo portrait is missing from the app bundle." : {
-
+    "Camera access is off. Allow it in Settings to cast spells.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "カメラへのアクセスがオフです。魔法を使うには「設定」で許可してください。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "相机访问已关闭。请在“设置”中允许后再施放魔法。"
+          }
+        }
+      }
     },
-    "The photo could not be taken." : {
-
+    "Capture": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "撮影"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拍摄"
+          }
+        }
+      }
     },
-    "Transformations" : {
-
+    "Close": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "閉じる"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭"
+          }
+        }
+      }
     },
-    "Version" : {
-
+    "Cool tones": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "寒色トーン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "冷色调"
+          }
+        }
+      }
     },
-    "Warm tones" : {
-
+    "Copied": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コピーしました"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已复制"
+          }
+        }
+      }
+    },
+    "Copy report": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "レポートをコピー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "复制报告"
+          }
+        }
+      }
+    },
+    "Copyright © 2026 Kyle Zhao. All rights reserved.": {
+      "localizations": {},
+      "shouldTranslate": false
+    },
+    "Delete": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "削除"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除"
+          }
+        }
+      }
+    },
+    "Demo": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "デモ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "演示"
+          }
+        }
+      }
+    },
+    "Display and saving": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "表示と保存"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示与保存"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完了"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成"
+          }
+        }
+      }
+    },
+    "Ember Veil": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "エンバー・ヴェール"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "余烬之纱"
+          }
+        }
+      }
+    },
+    "Face focus": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顔フォーカス"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "面部对焦"
+          }
+        }
+      }
+    },
+    "Fast": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高速"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "快速"
+          }
+        }
+      }
+    },
+    "Fast gives a coarser mask but leaves more time for 60 fps. Stills always use Accurate.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「高速」はマスクが粗くなりますが 60 fps の余裕が増えます。静止画は常に「高精度」を使用します。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“快速”蒙版较粗糙，但能为 60 fps 留出更多时间。静态照片始终使用“精确”。"
+          }
+        }
+      }
+    },
+    "Focus Charm": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フォーカス・チャーム"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "聚焦符咒"
+          }
+        }
+      }
+    },
+    "Front": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前面"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前置"
+          }
+        }
+      }
+    },
+    "Frost Veil": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フロスト・ヴェール"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "霜寒之纱"
+          }
+        }
+      }
+    },
+    "Grayscale": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "グレースケール"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "灰度"
+          }
+        }
+      }
+    },
+    "Item at %@": {
+      "extractionState": "stale",
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ の項目"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 的项目"
+          }
+        }
+      }
+    },
+    "Mist Barrier": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ミスト・バリア"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "迷雾结界"
+          }
+        }
+      }
+    },
+    "Moonlight Mono": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ムーンライト・モノ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "月光单色"
+          }
+        }
+      }
+    },
+    "No camera is available on this device.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このデバイスではカメラを利用できません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此设备没有可用的相机。"
+          }
+        }
+      }
+    },
+    "No spells": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "魔法なし"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未施法"
+          }
+        }
+      }
+    },
+    "No transformations yet": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "まだ変身はありません"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还没有变身记录"
+          }
+        }
+      }
+    },
+    "Performance report": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パフォーマンスレポート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "性能报告"
+          }
+        }
+      }
+    },
+    "Person segmentation": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "人物セグメンテーション"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "人像分割"
+          }
+        }
+      }
+    },
+    "Photo library access is off, so the photo was kept inside Maho Lens only.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "写真ライブラリへのアクセスがオフのため、写真は Maho Lens 内にのみ保存されました。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "照片图库访问已关闭，照片仅保存在 Maho Lens 内。"
+          }
+        }
+      }
+    },
+    "Photos you take are kept here and, if allowed, in your Photos library.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "撮影した写真はここに保存され、許可があれば写真ライブラリにも保存されます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拍摄的照片会保存在这里；如已允许，也会保存到照片图库。"
+          }
+        }
+      }
+    },
+    "Preview frame rate": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "プレビューのフレームレート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "预览帧率"
+          }
+        }
+      }
+    },
+    "Select an item": {
+      "extractionState": "stale",
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "項目を選択してください"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请选择一个项目"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置"
+          }
+        }
+      }
+    },
+    "Share": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享"
+          }
+        }
+      }
+    },
+    "Show performance metrics": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パフォーマンス指標を表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示性能指标"
+          }
+        }
+      }
+    },
+    "Take photo": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "写真を撮る"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拍照"
+          }
+        }
+      }
+    },
+    "The camera could not be configured.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "カメラを設定できませんでした。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法配置相机。"
+          }
+        }
+      }
+    },
+    "The demo portrait is missing from the app bundle.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "デモ用ポートレートがアプリに含まれていません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "应用包中缺少演示人像。"
+          }
+        }
+      }
+    },
+    "The photo could not be taken.": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "写真を撮影できませんでした。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法拍摄照片。"
+          }
+        }
+      }
+    },
+    "Transformations": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "変身"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "变身"
+          }
+        }
+      }
+    },
+    "Version": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "バージョン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "版本"
+          }
+        }
+      }
+    },
+    "Warm tones": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暖色トーン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暖色调"
+          }
+        }
+      }
+    },
+    "fps": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "fps"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "fps"
+          }
+        }
+      }
+    },
+    "target %lld": {
+      "localizations": {
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目標 %lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目标 %lld"
+          }
+        }
+      }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }
