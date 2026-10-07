@@ -13,6 +13,7 @@
 | 7 | Spell chips overflowed the screen in a horizontal row | UI test could not reach Mist Barrier | Three-column grid, all five spells visible |
 | 8 | Settings sheet failed to present right after dismissing the gallery sheet | UI test | Test waits for dismissal; the two sheets are independent state |
 | 9 | Preview rate fell 4–5 fps below the capture rate on device (50 vs 58 at 60 fps, 24 vs 29 at 30 fps) although rendering took ~1 ms | Device performance reports | The MTKView drew on a display timer at the target rate, beating against the camera's rate; rendering is now triggered per captured frame |
+| 10 | After the per-frame fix, 60 fps still read 46 while capture was 58 | Second device report | Draw calls hopped through the main thread and coalesced when SwiftUI was busy; rendering now goes directly into the Metal layer on the capture queue |
 
 ## Known issues
 

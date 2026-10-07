@@ -25,9 +25,11 @@ final class PreviewRenderer: NSObject, MTKViewDelegate, @unchecked Sendable {
     let spellRenderer: SpellRenderer
     let monitor: PerformanceMonitor
     private let commandQueue: MTLCommandQueue?
-    /// The view we render into. Drawing is driven by frame arrival rather than a display timer, so a
-    /// 29 fps capture does not beat against a 30 Hz timer and lose frames.
-    private weak var view: MTKView?
+    /// Rendering targets the view's Metal layer directly from the capture queue: no display timer to
+    /// beat against the camera rate, and no main-thread hop where frames could coalesce. The layer's
+    /// drawable pool paces presentation to the display's refresh.
+    private weak var metalLayer: CAMetalLayer?
+    private var drawableSize = CGSize.zero
 
     init(spellRenderer: SpellRenderer = SpellRenderer(), monitor: PerformanceMonitor) {
         self.spellRenderer = spellRenderer
@@ -36,20 +38,35 @@ final class PreviewRenderer: NSObject, MTKViewDelegate, @unchecked Sendable {
         super.init()
     }
 
+    @MainActor
     func attach(_ view: MTKView) {
-        lock.withLock { self.view = view }
+        let layer = view.layer as? CAMetalLayer
+        lock.withLock {
+            metalLayer = layer
+            drawableSize = view.drawableSize
+        }
     }
 
+    /// Called on the source's queue for every frame. Renders immediately.
     func enqueue(_ frame: VideoFrame) {
-        let target = lock.withLock { () -> MTKView? in
+        let (layer, size, mask, spells) = lock.withLock { () -> (CAMetalLayer?, CGSize, CIImage?, SpellState) in
             pendingFrame = frame
             hasNewFrame = true
             frameSize = frame.size
-            return view
+            return (metalLayer, drawableSize, self.mask, self.spells)
         }
         monitor.recordCapture(at: frame.timestamp)
-        guard let target else { return }
-        DispatchQueue.main.async { target.draw() }
+        guard let layer, size != .zero, let commandQueue else { return }
+        // Blocks when all drawables are in flight, which paces us to the display without dropping
+        // more than the camera already discards for late frames.
+        guard let drawable = layer.nextDrawable(), let commandBuffer = commandQueue.makeCommandBuffer() else { return }
+        let start = CACurrentMediaTime()
+        let image = spellRenderer.apply(.init(image: CIImage(cvPixelBuffer: frame.pixelBuffer), mask: mask, spells: spells))
+        spellRenderer.render(image, to: drawable.texture, commandBuffer: commandBuffer, size: size)
+        commandBuffer.present(drawable)
+        commandBuffer.commit()
+        lock.withLock { hasNewFrame = false }
+        monitor.recordPreview(at: CACurrentMediaTime(), milliseconds: (CACurrentMediaTime() - start) * 1000)
     }
 
     func update(mask: CIImage?) {
@@ -74,7 +91,9 @@ final class PreviewRenderer: NSObject, MTKViewDelegate, @unchecked Sendable {
 
     // MARK: - MTKViewDelegate
 
-    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {}
+    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
+        lock.withLock { drawableSize = size }
+    }
 
     func draw(in view: MTKView) {
         let (frame, mask, spells, isNew) = lock.withLock { () -> (VideoFrame?, CIImage?, SpellState, Bool) in
@@ -106,10 +125,11 @@ struct MetalPreviewView: UIViewRepresentable {
         view.delegate = renderer
         view.framebufferOnly = false
         view.colorPixelFormat = .bgra8Unorm
-        // Paused: `PreviewRenderer.enqueue` calls `draw()` for every captured frame instead.
+        // Paused: `PreviewRenderer.enqueue` renders into the layer for every captured frame instead.
         view.isPaused = true
         view.enableSetNeedsDisplay = false
         view.preferredFramesPerSecond = preferredFramesPerSecond
+        view.autoResizeDrawable = true
         renderer.attach(view)
         view.backgroundColor = .black
         view.clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 1)
@@ -123,5 +143,6 @@ struct MetalPreviewView: UIViewRepresentable {
         if view.preferredFramesPerSecond != preferredFramesPerSecond {
             view.preferredFramesPerSecond = preferredFramesPerSecond
         }
+        renderer.attach(view)
     }
 }

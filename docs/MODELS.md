@@ -31,11 +31,16 @@ The dial shows preview, capture and analysis rates over a one-second window, ren
 | iPhone 16e simulator | 60 fps, Mist + Ember + Mono | 25 | 3.3 | 43 | same caveat |
 | iPhone 16e, front camera 1920×1080 (Kyle's device, 2026-10-07, timer-driven rendering) | 60 fps, Mist Barrier | 50.0 (peak 60.0) | 0.96 | 18.3 (29 analyses/s) | capture 58 fps; meets target |
 | iPhone 16e, front camera 1920×1080 (same build) | 30 fps, Mist Barrier | 24.0 (peak 26.0) | 1.44 | 29.2 (21 analyses/s) | capture 29 fps; **below target by 1 fps** |
-| iPhone 16e, after frame-driven rendering fix | 30 fps / 60 fps | _to be re-measured_ | | | the fix removes the timer/capture beat that cost 4–5 fps |
+| iPhone 16e, frame-driven draw via main thread | 30 fps, Mist Barrier | 30.0 (peak 31.0) | 2.77 | 15.9 (30 analyses/s) | capture 29 fps; meets target |
+| iPhone 16e, frame-driven draw via main thread | 60 fps, Mist Barrier | 46.0 (peak 61.0) | 3.31 | 25.3 (29 analyses/s) | capture 58 fps; below target: frames coalesced on the main thread |
+| iPhone 16e, direct layer rendering on the capture queue | 30 fps / 60 fps | _to be re-measured_ | | | removes the main-thread hop |
 
 The device reports show the GPU is not the limit (about 1 ms per frame) and the camera delivers
 29 and 58 fps. The lost frames came from the preview drawing on a display timer at the target rate:
 with capture at 29 fps and a 30 Hz timer, frames periodically land two per tick and one is skipped.
-Rendering is now triggered by frame arrival, so the preview rate should track the capture rate.
+Triggering the draw per frame through the main thread fixed 30 fps (30.0) but still lost frames at
+60 (46.0): when SwiftUI kept the main thread busy for more than a frame, two captured frames
+coalesced into one draw. Rendering now goes straight into the view's `CAMetalLayer` on the capture
+queue, where `nextDrawable()` paces presentation to the display.
 
 The 25 fps (at 30) and 50 fps (at 60) thresholds are encoded in `FrameRateSetting.minimumAcceptable` and drive the dial colour.
