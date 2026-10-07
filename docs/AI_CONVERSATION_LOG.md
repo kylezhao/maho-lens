@@ -1,6 +1,6 @@
 # AI conversation log
 
-Session between Kyle Zhao and Claude Code (model: Claude Fable 5.1, `claude-fable-5-1`) used to build the three Metanomaly assignment apps. Tool calls, build output and screenshots are omitted; this is the human-readable exchange. Times are JST.
+Session between Kyle Zhao and Claude Code (model: Claude Fable 5.1, `claude-fable-5-1`) used to build the three Metanomaly assignment apps, from project setup through device validation. Tool calls, build output and screenshots are omitted; this is the human-readable exchange. Times are JST. Model parameters and measured metrics for each app are in `MODELS.md`.
 
 
 ## 2026-10-05
@@ -816,3 +816,290 @@ Ok I ran all three locally and they work great! Do 2 and 3 now
 ### 16:10 · **Claude**
 
 Great news on the device runs. Starting with the translations: first I'll dump the untranslated keys so I can translate every string exactly as it appears, placeholders included.
+
+### 16:35 · **Claude**
+
+Items 2 and 3 are done and everything is pushed. All three repos are clean and match GitHub.
+
+**Translations (item 2).** All 274 UI strings across the three apps now have Japanese and Simplified Chinese, including the permission prompts and bundle names. All three apps rebuild cleanly with the new catalogs.
+
+**Submission documents (item 3).** Each repo has a `docs/` folder with:
+
+- `MODELS.md`: the models, parameters, and measured metrics, including your device numbers for Kotodama and Isekai Log.
+- `BUGS.md`: bugs found and fixed during development, plus known issues.
+- `OPTIMIZATIONS.md`: what was optimized and what remains.
+- `AI_CONVERSATION_LOG.md`: this session's exchange, extracted from the transcript with tool noise removed.
+- `screenshots/` from the UI tests.
+
+**Isekai Log playtests.** A test now plays three scripted sessions against the real on-device model and exports each as Markdown. Reading round one exposed real bugs the UI tests had missed: the model re-booked earlier events on later turns (the potion three times), flipped signs on purchases, named the player's own party as a counterparty, and one turn failed to decode. Rounds two and three fixed these with de-duplication, memo-based sign correction, and a decode retry. All three rounds and the iteration notes are in `docs/playtests/`, which covers the "playtest logs from debugging and your approach" ask.
+
+**One thing to know.** Your Mac's Xcode switched from 26.6 to 27.0 mid-session. The iOS 26.5 runtime is still installed, all tests pass under Xcode 27, and I restarted the simulator service once to recover. If anything behaves oddly when you build, check which Xcode is active first.
+
+**Still yours to do before 11:00 tomorrow:**
+
+1. Paste the Maho Lens performance report from its Settings screen into the row marked "fill in" in `Maho Lens/docs/MODELS.md`, so the 25 and 50 fps claims have device numbers behind them.
+2. Record the three showcase videos on the phone.
+3. Optionally, drop an API key into Isekai Log and Kotodama to exercise the Claude paths.
+
+### 16:53 · **Kyle**
+
+I need app icons for the 3 apps currently in this workspace, fully compliant with Apple's Liquid Glass icon design specifications. 
+
+Please perform the following steps for each app in the workspace:
+
+### 1. Identify App Themes & Visual Metaphors
+Analyze the target app's name, feature set, and visual theme. Determine:
+- A distinct, single foreground glyph/symbol (minimalist 2D geometry).
+- A complementary background accent/gradient.
+
+### 2. Generate Master Vector Artwork
+Generate raw SVG files for each app. Ensure strict separation of layers:
+- `Foreground.svg`: Clean, bold vector artwork centered within a 716×716 px safe area inside a 1024×1024 px canvas. No drop shadows, specular highlights, or baked-in glass effects.
+- `Background.svg`: Clean background layer (solid color or smooth gradient) at 1024×1024 px with no pre-applied corner rounding.
+
+*(Note: You can write a short Python script using `svgwrite`, `cairosvg`, or raw SVG XML to generate and export these vector files into a `./design_assets/[AppName]/` folder).*
+
+### 3. Xcode Asset Catalog Integration
+Create or update the target app's `Assets.xcassets/AppIcon.appiconset` directory:
+1. Place the 1024x1024 PNG versions (or SVG vectors where supported) inside the asset catalog.
+2. Generate or update the `Contents.json` file configuring the AppIcon set to accept single-size high-res master assets (`1024x1024` single-slot layout).
+
+### 4. Icon Composer / Xcode Guidance Output
+Once generated, output a summary listing:
+- The generated vector file locations for each app.
+- Clear instructions on how to drag these SVG/PNG layers into Apple's Icon Composer (or Xcode) to apply final system-rendered Liquid Glass attributes (translucency, refraction, and specular highlights).
+
+Please start by identifying the three apps in this repository and proposed icon concepts for each before generating the assets.
+
+### 16:55 · **Kyle**
+
+can you also add app icons to all three apps? They should be Liquid glass compliant and I think they can be in .svg format?
+
+### 16:55 · **Claude**
+
+Yes. iOS 26 app icons are Icon Composer documents (`.icon` bundles) made of SVG or PNG layers over a fill, and the system renders them as Liquid Glass in light, dark, clear and tinted modes. Xcode 26 and 27 compile them directly. I'll first check the exact document format from the Icon Composer app bundled with Xcode, then design one icon per app.
+
+### 17:01 · **Kyle**
+
+[Image: original 1170x2532, displayed at 924x2000. Multiply coordinates by 1.27 to map to original image.]
+
+### 17:01 · **Claude**
+
+All three apps now have Liquid Glass icons, pushed to their repos.
+
+**Format.** Each app has an `AppIcon.icon` Icon Composer document: an `icon.json` with a fill colour plus three SVG layers in `Assets/`, rendered by the system with specular highlights, translucency and shadow, and automatically adapted for dark, clear and tinted home screens. Xcode 26 and 27 compile it with no PNG sets needed, and the build confirms each app's primary icon resolves to it.
+
+**Designs**
+
+- **Maho Lens**: candy-pink gradient, a white lens ring with a gold four-point star at its centre, and small sparkles. Layers: sparkles, star, ring.
+- **Kotodama**: deep teal gradient, a white speech bubble with dark voice bars inside and a cyan spirit flame rising from its corner. Layers: spirit, waves, bubble.
+- **Isekai Log**: violet night gradient, an unrolled parchment scroll with purple lines, a large golden moon and a small blue one, scattered stars. Layers: stars, scroll, moons.
+
+**Verified** on the Simulator home screen next to the system icons; the crop is in each repo's `docs/screenshots/app-icons-home.png`. One detail I fixed along the way: Icon Composer lists layers top-first, so the first draft hid the voice bars behind the bubble.
+
+Since the icons are plain SVG, you can open any `AppIcon.icon` in Icon Composer from Xcode to tweak colours, fill or layer effects without touching code.
+
+### 17:05 · **Kyle**
+
+Alright give me the full list of stull I need to do again here is the original email
+
+
+You have 3 days. Complete at least one of the tasks below; you may submit more than one — the more you complete, the better.
+For anything not explicitly specified, feel free to make your own product decisions, and explain your reasoning where necessary.
+Beauty Camera
+
+Functional Requirements:
+Single-person face detection and focus.
+Cool and warm color toning.
+Grayscale for the entire preview.
+Background blur outside the subject, with adjustable blur strength.
+Take photos and save them to local storage.
+Preview performance:
+At a 30 FPS setting, the actual preview frame rate must be no lower than 25 FPS.
+At a 60 FPS setting, the actual preview frame rate must be no lower than 50 FPS.
+Once the above are met, the higher the frame rate, the better.
+Submission Requirements:
+The app or its code repository.
+A screen recording demonstrating the features (showcase).
+Your conversations with AI and the results, including the parameters and metrics of the models used.
+A bug list and a list of optimizations.
+AI Speech-to-Text App
+
+Functional Requirements:
+Speech recognition for Chinese, English, and dialects.
+Automatic translation, showing the results translated into other languages.
+Switching between different language styles and usage scenarios.
+Automatically output polished text.
+Bonus:
+Switching between on-device and cloud recognition models.
+Submission Requirements:
+The app or its code repository.
+A screen recording demonstrating the features (showcase).
+Your conversations with AI and the results, including the parameters and metrics of the models used.
+A bug list and a list of optimizations.
+LLM Roleplay Adventure Chat Framework
+
+Functional Requirements:
+Build an LLM Roleplay Adventure Chat framework from scratch.
+Implement effective backend bookkeeping that supports transactions and parties.
+The client supports both offline and online chat modes.
+Bonus:
+Handle income and expenses described in natural language.
+Support currency conversion.
+Submission Requirements:
+The app or its code repository.
+A screen recording demonstrating the features (showcase).
+Your conversation logs with AI / coding agents, including the parameters and metrics of the models used.
+Several sets of playtest chat logs from the finished implementation, as test cases.
+Optionally, playtest logs from debugging, along with your approach to iterating based on them.
+
+--
+People Team
+Metanomaly Inc.
+🌐 Careers (EN) │🇯🇵 Careers (JP)
+
+### 17:06 · **Claude**
+
+Here's the full status against the email, then your remaining to-do list.
+
+## Status by app
+
+**Beauty Camera → Maho Lens** (github.com/kylezhao/maho-lens)
+- Face detection and focus: done, Focus Charm. Toning cool/warm: done. Grayscale: done. Adjustable background blur: done. Photos saved locally and to Photos: done.
+- Preview performance: dial and thresholds built; **device numbers still missing** from `docs/MODELS.md`.
+- Repo ✓ · AI log + params/metrics ✓ · bug list ✓ · optimizations ✓ · **screen recording ✗**
+
+**Speech-to-Text → Kotodama** (github.com/kylezhao/kotodama)
+- Chinese, English and dialects: done, 15 varieties. Auto translation: done. Styles and scenarios: done. Polished text: done. Bonus on-device/cloud switch: done.
+- Repo ✓ · AI log + params/metrics ✓ · bug list ✓ · optimizations ✓ · **screen recording ✗**
+
+**LLM Roleplay → Isekai Log** (github.com/kylezhao/isekai-log)
+- Framework from scratch: done. Bookkeeping with transactions and parties: done. Offline and online modes: done, online untested live. Bonus natural-language money and currency conversion: done.
+- Repo ✓ · AI log + params/metrics ✓ · playtest logs as test cases ✓ (3 scenarios) · debugging logs with iteration approach ✓ (rounds 1 to 3) · **screen recording ✗**
+
+Also done across all three: Japanese and Chinese localization, Liquid Glass icons, docs folders, and all repos are public and pushed.
+
+## Your to-do list
+
+1. **Maho Lens device numbers.** On the phone, set 30 fps and then 60 fps with Mist Barrier on, open Settings, tap Copy report, and paste both reports to me or into the "fill in" row of `Maho Lens/docs/MODELS.md`. This is the only requirement with no device evidence yet.
+
+2. **Three screen recordings** on the phone, two to three minutes each.
+   - Maho Lens: tap each spell, drag the blur slider, show the dial at 30 then 60 with the green dot, take a photo, open the gallery, show it in Photos.
+   - Kotodama: speak Mandarin, then English, switch a dialect, show live text, polished text, translations, change a style chip, press play on a sentence, flip to cloud mode and speak once, open History and Settings voices.
+   - Isekai Log: new adventure with a persona, a sale, a purchase, an impossible purchase, a transfer to a named party, open the ledger and party screens, switch narrator mode, export the log.
+
+3. **Optional cloud test.** Put an Anthropic API key into Isekai Log and Kotodama settings and run one turn and one polish. If you do, tell me the outcome and I'll update the docs.
+
+4. **Submit.** Send the three repo URLs, the videos, and point them to each repo's `docs/` folder for the AI log, model parameters and metrics, bug list, optimizations, and playtests. I can draft the cover email if you want.
+
+### 17:23 · **Kyle**
+
+Here is the report for 60 and 30 
+
+iPhone 16e
+
+=============================
+
+Source: Front camera 1920×1080 @60
+Target: 60 fps (minimum 50 fps)
+Preview: 50.0 fps (low 1.0, peak 60.0)
+Capture: 58.0 fps
+Analysis: 29.0 fps, 18.3 ms
+Render: 0.96 ms per frame
+Spells: Mist Barrier
+Result: meets target
+
+
+=============================
+
+Source: Front camera 1920×1080 @30
+Target: 30 fps (minimum 25 fps)
+Preview: 24.0 fps (low 3.0, peak 26.0)
+Capture: 29.0 fps
+Analysis: 21.0 fps, 29.2 ms
+Render: 1.44 ms per frame
+Spells: Mist Barrier
+Result: below target
+
+### 17:24 · **Claude**
+
+Thanks, this is exactly the data I needed, and it exposes a real pipeline issue. In both runs the camera delivers nearly the full rate (58 and 29 fps) and rendering takes about 1 ms, yet the preview counts fewer frames (50 and 24). The cause is that the preview draws on a display timer at the target rate while frames arrive at a slightly different rate, so the two beat against each other and frames get skipped. Rendering each frame as it arrives instead of on a timer should make the preview rate match capture. I'll make that change, verify in the Simulator, and record your numbers in the docs.
+
+### 17:27 · **Kyle**
+
+[Image: original 1170x2532, displayed at 924x2000. Multiply coordinates by 1.27 to map to original image.]
+
+### 17:28 · **Claude**
+
+Pushed to maho-lens (3247587). Your two reports went into `docs/MODELS.md` as recorded, and the finding into the bug list.
+
+**What the numbers showed.** The camera was delivering 58 and 29 fps and each frame rendered in about 1 ms, so neither the sensor nor the GPU was the limit. The preview lost 4 to 5 fps because the view drew on a display timer at the target rate, and a 29 fps camera against a 30 Hz timer periodically puts two frames in one tick, skipping one. At 60 the same beat cost 8 fps.
+
+**The fix.** The preview view is now paused and draws once per captured frame, so every frame is presented on the next vsync and the preview rate tracks the capture rate. In the Simulator, under the same heavy three-spell load that previously read 25 fps at the 60 target, the dial now reads in the forties, and all 23 tests pass.
+
+**One more measurement from you, please.** Pull, rebuild on the phone, and copy the two reports again with Mist Barrier on. I expect roughly 29 at the 30 setting and 58 at the 60 setting, both green. Send them over and I'll drop them into the "to be re-measured" row so the submission has the final device evidence.
+
+### 17:31 · **Kyle**
+
+Source: Front camera 1920×1080 @30
+Target: 30 fps (minimum 25 fps)
+Preview: 30.0 fps (low 3.0, peak 31.0)
+Capture: 29.0 fps
+Analysis: 30.0 fps, 15.9 ms
+Render: 2.77 ms per frame
+Spells: Mist Barrier
+Result: meets target
+
+
+Source: Front camera 1920×1080 @60
+Target: 60 fps (minimum 50 fps)
+Preview: 46.0 fps (low 9.0, peak 61.0)
+Capture: 58.0 fps
+Analysis: 29.0 fps, 25.3 ms
+Render: 3.31 ms per frame
+Spells: Mist Barrier
+Result: below target
+
+### 17:32 · **Claude**
+
+Progress: 30 fps now meets the target at 30.0, and the 60 run tells me where the remaining loss is. Capture is still 58, but drawing hops through the main thread, and whenever SwiftUI is busy there two frames coalesce into one draw. The fix is to render straight into the Metal layer on the capture queue, with no main-thread hop; the layer's own drawable pool then paces presentation to the display. I'll make that change, verify, and record both of your reports.
+
+### 17:38 · **Kyle**
+
+[Image: original 1170x2532, displayed at 924x2000. Multiply coordinates by 1.27 to map to original image.]
+
+### 17:38 · **Claude**
+
+Pushed to maho-lens (fc66a09). The Simulator renders through the new direct-layer path at a steady 30 with a 0.5 ms render time, and all 23 tests pass.
+
+**What changed.** The 30 fps run proved the per-frame trigger worked, but the 60 fps run still lost 12 of 58 frames. Those draws were dispatched to the main thread, and whenever SwiftUI held it for more than a frame two captured frames collapsed into a single draw. Frames are now rendered straight into the view's Metal layer on the capture queue. There's no main-thread hop, and the layer's drawable pool paces presentation to the display, so the only frames ever dropped are the ones the camera already discards as late.
+
+**Please measure once more**, 60 fps with Mist Barrier on, after pulling and rebuilding. I expect the preview to read 56 to 58. The 30 fps result is already in the docs as passing, and both of your previous reports are recorded along with the explanation of each loss, which makes a good optimization story for the submission.
+
+### 17:50 · **Kyle**
+
+Noticing something really weird. the fps drops significantly when the settings pane it up but when the pane is closed and we're on the viewfinder the fps is fine!! Somthing with the settings pane is throwing off the fps, maybe its because the settings pane has some trancelucenly and that extra compute is throwing off the fps. but from what I can tell with settings disabled the fps is consistently above 55 even with Mist Barrier on [Image #8] [Image #9]
+
+### 17:50 · **Kyle**
+
+[Image: source: /Users/pingfang.zhao/Desktop/IMG_0081.jpeg]
+[Image: source: /Users/pingfang.zhao/Desktop/IMG_0082.jpeg]
+
+### 17:51 · **Claude**
+
+Your diagnosis is right, and the mechanism is specific. While the sheet covers the viewfinder, the Metal layer is occluded, so the system withholds drawables. My renderer now blocks on the capture queue waiting for one, which stalls the camera delegate and the camera discards frames, which is why capture itself read 42. The 60 fps you see on the viewfinder is the true pipeline rate, and it meets the requirement. Two fixes: render on a dedicated queue through a latest-frame mailbox so the capture thread never blocks, and freeze the performance report at the moment Settings opens so it shows the viewfinder's numbers.
+
+### 17:54 · **Claude**
+
+Pushed to maho-lens (d0fd141). All 23 tests pass.
+
+**What was happening.** When the Settings sheet covers the viewfinder, the Metal layer is occluded and the system withholds drawables. My renderer was waiting for a drawable on the camera's own delegate queue, so the camera stalled and discarded frames, which is why the report showed capture itself falling to 42. The viewfinder's 60 fps with Mist Barrier on was the real number all along, and it means the 60 fps requirement is met with headroom: render 2.0 ms, segmentation 10 ms, green dot.
+
+**Two fixes**
+
+- Rendering now runs on its own queue fed by a one-frame mailbox. The capture thread drops the frame off and returns immediately, so waiting for a drawable can never stall the camera or the analysis, whether a sheet is up or not.
+- The performance report is frozen at the moment you tap the settings gear, with a footer explaining why, so it reflects the viewfinder rather than the occluded preview.
+
+**Docs updated.** Your viewfinder reading is recorded in `docs/MODELS.md` as the device evidence for the 60 fps threshold, alongside the 30 fps result from your earlier report, and the occlusion issue is bug 11 in `docs/BUGS.md`. That makes three performance findings traced from device reports to fixes, which reads well as the optimization story.
+
+**One last check from you:** pull, rebuild, open Settings while Mist Barrier is on at 60, and confirm the report now shows the viewfinder's numbers. Then the only items left on your list are the three screen recordings and the submission itself.

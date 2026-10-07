@@ -9,7 +9,16 @@ and a burst of sparkles.
 
 Built for the Metanomaly iOS programming assignment (Beauty Camera).
 
-![Preview](docs/screenshots/04-mist-barrier.png) ![Ember Veil](docs/screenshots/03-ember-veil.png) ![Gallery](docs/screenshots/08-gallery.png)
+
+## Showcase
+
+**Screen recording (iPhone 16e):** [docs/showcase/maho-lens-showcase.mp4](docs/showcase/maho-lens-showcase.mp4)
+
+| On device: 60 fps with Mist Barrier and Focus Charm | Home screen | Simulator: Ember Veil | Gallery |
+| --- | --- | --- | --- |
+| ![Viewfinder at 60 fps](docs/showcase/device-viewfinder-60fps.jpeg) | ![Home screen](docs/showcase/device-home-screen.jpeg) | ![Ember Veil](docs/screenshots/03-ember-veil.png) | ![Gallery](docs/screenshots/08-gallery.png) |
+
+Submission documents: [AI conversation log](docs/AI_CONVERSATION_LOG.md) · [Models, parameters and metrics](docs/MODELS.md) · [Bug list](docs/BUGS.md) · [Optimizations](docs/OPTIMIZATIONS.md)
 
 ## Spells and requirements
 
